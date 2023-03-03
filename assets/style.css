@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content {
+    position: relative;
+    right: 0;
+    left: 0;
+    background-color: #F2F2F2;
+    width: 500px;
+    height: 473px;
+    margin: 90px auto;
+    border-radius: 50px;
+}
+
+.line {
+    background-color: #DBF4FF;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    display: block;
+    position: relative;
+    top: 54px;
+    height: 6px;
+    margin-left: 23px;
+    margin-right: 23px;
+
+}
+
+.screen {
+    outline: none;
+    border: 4px solid ;
+    background-color: #FFFFFF;
+    width: 483px;
+    height: 73px;
+    display: block;
+    position: relative;
+    top: 80px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: end;
+    padding-right: 8px;
+    font-size: 32px;
+}
+
+.btns {
+    display: grid;
+    grid-template-columns: 1fr 42px 1fr;
+    position: absolute;
+    top: 172px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 93%;
+}
+
+.btns > div:nth-child(1) {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+}
+.btns > div:nth-child(2) {
+    grid-column-start: 3;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+}
+button {
+    width: 100%;
+    height: 57px;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+button[id='CE'] {
+    background-color: #498EFB;
+}
+button[id='C'] {
+    background-color: #F94A48;
+}
+button[id='='] {
+    background-color: #F9E949;
+    grid-column: 1;
+}
+button[id='+'] {
+    background-color: #45FB74;
+    grid-column: 2;
+    grid-row: 3 / span 2;
+    height: 100%;
+}
+button[id='num 0'] {
+    grid-column: 1 / span 2;
+}
