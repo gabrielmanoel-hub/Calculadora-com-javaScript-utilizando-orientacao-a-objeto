@@ -1,36 +1,60 @@
+import { Calculator } from "./assets/js/calculador.js"
 const buttons = document.querySelectorAll('button')
 const input = document.querySelector('input')
+
 const operadores = {
         '.': '.',
-        '-': '-',
         '+': '+',
-        '/': '/'
+        '*': '*',
+        '÷': '÷'
 }
-
+const calc = new Calculator(input, buttons, operadores)
 
 buttons.forEach((element) => {
         element.addEventListener('click', (e) => {
-                input.value += e.target.innerHTML
-
-                if(+e.target.innerHTML >= 0) {
-                        input.value += +e.target.innerHTML
-                        
+                if(/[^CE=]/g.test(e.target.innerHTML)) {
+                        calc.screen(e.target.innerHTML)
                 }
 
-                if(input.value == '+' && e.target.innerHTML == '+') {
-                       input.value = ''
+                if(e.target.innerHTML == '=') {
+                        calc.Result()
                 }
+
+                if(e.target.innerHTML == 'C') {
+                        calc.clear()
+                }
+
+                if(e.target.innerHTML == 'CE') {
+                        calc.clearAll()
+                }
+        //        console.log(e.target.innerHTML)
+                changeConvert()
+                calc.blockOperadorNoInicio(e.target.innerHTML)
         })
+
 })
 
+function changeConvert() {
+        if(input.value.includes('÷')) {
+                input.value = input.value.replace('÷', '/')
+        }
+}
+//==============================================================================================
 
 
-input.addEventListener('keyup', (e) => {
-        limitString(e)
+
+
+
+input.addEventListener('keyup', (element) => {
+        limitString(element)
          
-        console.log(e.code, input.value.length)
-        
+        if(element.key == 'Enter') {
+                console.log(calc.Result())
+        }
 
+        if(+element.target.value >= 0) {
+               // calc.addDigit(element.target.value)
+        }
 
 
 })
@@ -38,6 +62,5 @@ input.addEventListener('keyup', (e) => {
 const limitString = (key) => {
         if(input.value == '-' && key.target.value == '-') {
                 input.value = ''
-                // console.log(screens.value = screens.value.slice(-1) )
         }
 }
