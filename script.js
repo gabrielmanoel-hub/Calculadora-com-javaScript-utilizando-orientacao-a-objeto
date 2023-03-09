@@ -3,38 +3,34 @@ const buttons = document.querySelectorAll('button')
 const input = document.querySelector('input')
 
 const operadores = {
-        '.': '.',
         '+': '+',
         '*': '*',
-        '÷': '÷'
+        '/': '/'
 }
+
 const calc = new Calculator(input, buttons, operadores)
-
 buttons.forEach((element) => {
-        element.addEventListener('click', (e) => {
-                if(/[^CE=]/g.test(e.target.innerHTML)) {
-                        calc.screen(e.target.innerHTML)
+        element.addEventListener('click', (text) => {
+               
+                if(/[^CE=]/g.test(text.target.innerHTML)) {
+                        calc.screen(text.target.innerHTML)
                 }
-
-                if(e.target.innerHTML == '=') {
+                if(text.target.innerHTML == '=') {
                         calc.Result()
                 }
-
-                if(e.target.innerHTML == 'C') {
+                if(text.target.innerHTML == 'C') {
                         calc.clear()
                 }
-
-                if(e.target.innerHTML == 'CE') {
+                if(text.target.innerHTML == 'CE') {
                         calc.clearAll()
                 }
-        //        console.log(e.target.innerHTML)
-                changeConvert()
-                calc.blockOperadorNoInicio(e.target.innerHTML)
+                changeConvert(text)
+                calc.blockOperadorNoInicio(text.target.innerHTML)
         })
 
 })
 
-function changeConvert() {
+function changeConvert(e) {
         if(input.value.includes('÷')) {
                 input.value = input.value.replace('÷', '/')
         }
@@ -60,7 +56,23 @@ input.addEventListener('keyup', (element) => {
 })
 
 const limitString = (key) => {
-        if(input.value == '-' && key.target.value == '-') {
+        if(/[(\/*\+)]/g.test(input.value[0])  || /[a-zA-Zçá-ú_#$%&,><|]/g.test(input.value) || /\d([+-\/*]){2,6}/g.test(input.value) || /-{2}/g.test(input.value) || /[*+]{1,6}/g.test(input.value[0])) {
+                input.value = input.value.slice(-1)
+        }
+
+        if(/^[*\/+]{1,6}/g.test(input.value[0])) {
                 input.value = ''
         }
+check()
+   console.log(key.key)    
+
 }
+
+class toCheck = {
+        constructor() {
+
+        }
+}
+
+const check = new toCheck()
+
