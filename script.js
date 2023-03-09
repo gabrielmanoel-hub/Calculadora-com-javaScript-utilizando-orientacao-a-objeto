@@ -63,16 +63,16 @@ const limitString = (key) => {
         if(/^[*\/+]{1,6}/g.test(input.value[0])) {
                 input.value = ''
         }
-check()
+// check()
    console.log(key.key)    
 
 }
 
-class toCheck = {
-        constructor() {
+// class toCheck = {
+//         constructor() {
 
-        }
-}
+//         }
+// }
 
-const check = new toCheck()
+// const check = new toCheck()
 
