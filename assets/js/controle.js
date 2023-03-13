@@ -1,4 +1,4 @@
-export class Calculator {
+export class Controle {
     constructor(input, buttons, operators) {
         // this.buttons = buttons;
         this.input = input;

@@ -1,4 +1,4 @@
-import { Calculator } from "./assets/js/calculador.js"
+import { Controle } from "./assets/js/controle.js"
 const buttons = document.querySelectorAll('button')
 const input = document.querySelector('input')
 
@@ -8,7 +8,7 @@ const operadores = {
         '/': '/'
 }
 
-const calc = new Calculator(input, buttons, operadores)
+const calc = new Controle(input, buttons, operadores)
 buttons.forEach((element) => {
         element.addEventListener('click', (text) => {
                
@@ -42,37 +42,91 @@ function changeConvert(e) {
 
 
 input.addEventListener('keyup', (element) => {
-        limitString(element)
+        
          
         if(element.key == 'Enter') {
-                console.log(calc.Result())
+                calc.Result()
         }
 
-        if(+element.target.value >= 0) {
-               // calc.addDigit(element.target.value)
-        }
-
-
+        replaceOperator(element.key)
+        excludeLetters()
+        avoidRepeatSubtraction()
+        blockSomeOperations()
+        deleteRepeat()
+        deleteStitchRepeats()
+        limitZeroNoStart()
 })
 
-const limitString = (key) => {
-        if(/[(\/*\+)]/g.test(input.value[0])  || /[a-zA-Zçá-ú_#$%&,><|]/g.test(input.value) || /\d([+-\/*]){2,6}/g.test(input.value) || /-{2}/g.test(input.value) || /[*+]{1,6}/g.test(input.value[0])) {
-                input.value = input.value.slice(-1)
-        }
 
-        if(/^[*\/+]{1,6}/g.test(input.value[0])) {
-                input.value = ''
+
+function excludeLetters(element) {
+        if(/[a-zA-Z]+/g.test(input.value)) {
+                eraseAll()
         }
-// check()
-   console.log(key.key)    
+}
+
+function avoidRepeatSubtraction() {
+        if(/^[-]{2,6}/g.test(input.value)) {
+                deleteRepeats()
+        }
+}
+
+function blockSomeOperations() {
+        if(/^[+*\/]/g.test(input.value) || /^[-]\W/g.test(input.value)) {
+                eraseAll()
+        }
+}
+
+function replaceOperator(element) {
+        if(/\d[\/*+-]{2}/g.test(input.value)) {
+               changeOperator()
+        }
+}
+
+function deleteRepeat() {
+        if(/[\/*+-]{2,}/g.test(input.value)) {
+                eraseAll()
+        }
+}
+function deleteStitchRepeats() {
+        if(/[.]{2,6}/g.test(input.value)) {
+                deletePoint()
+        }
+}
+
+function limitZeroNoStart() {
+        if(/^[0]{2,}/g.test(input.value)) {
+                deletePoint()
+        }
+}
+
+
+
+
+function deleteRepeats() {
+        input.value =  input.value.slice(0,-1)
+}
+
+function eraseAll() {
+        input.value = ''
+}
+
+function swapOperators(element) {
+        input.value =  input.value.slice(0,-1)
+}
+
+function changeOperator() {
+        input.value = input.value.slice(0,-2) + element 
+}
+
+function deletePoint() {
+        input.value = input.value.slice(0,-1)
+}
+
+function limitZero() {
 
 }
 
-// class toCheck = {
-//         constructor() {
 
-//         }
-// }
 
-// const check = new toCheck()
 
