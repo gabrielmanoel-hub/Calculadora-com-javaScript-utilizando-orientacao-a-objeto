@@ -1,4 +1,4 @@
-import { Controle } from "./assets/js/controle.js"
+import { Controle, filterKeyboardInput } from "./assets/js/controle.js"
 const buttons = document.querySelectorAll('button')
 const input = document.querySelector('input')
 
@@ -9,6 +9,7 @@ const operadores = {
 }
 
 const calc = new Controle(input, buttons, operadores)
+const kay = new filterKeyboardInput(input)
 buttons.forEach((element) => {
         element.addEventListener('click', (text) => {
                
@@ -41,91 +42,40 @@ function changeConvert(e) {
 
 
 
-input.addEventListener('keyup', (element) => {
-        
+input.addEventListener('keydown', (element) => {
+        event.preventDefault();
          
         if(element.key == 'Enter') {
                 calc.Result()
+                if(/.\d{3,}/g.test(input.value)) {
+                        input.value = Number.parseFloat(input.value).toFixed(2);
+                }
+        }
+        if(/[\d-+*.\/]/g.test(element.key)) {
+                kay.number(element.key)
+                kay.limmitPonit(element.key)
+                kay.operadores(element.key)
+                kay.operatorSubtraction(element.key)
+                kay.limitOperatorNoStart(element.key)
+                kay.changeOperator(element.key)
         }
 
-        replaceOperator(element.key)
-        excludeLetters()
-        avoidRepeatSubtraction()
-        blockSomeOperations()
-        deleteRepeat()
-        deleteStitchRepeats()
-        limitZeroNoStart()
+        if(element.key === 'Backspace') {
+                kay.clear()
+        }
+        if(element.key === 'Delete') {
+                kay.clearAll(element.key)
+        }
+        console.log(element.key)
+
+
+        
 })
 
 
 
-function excludeLetters(element) {
-        if(/[a-zA-Z]+/g.test(input.value)) {
-                eraseAll()
-        }
-}
-
-function avoidRepeatSubtraction() {
-        if(/^[-]{2,6}/g.test(input.value)) {
-                deleteRepeats()
-        }
-}
-
-function blockSomeOperations() {
-        if(/^[+*\/]/g.test(input.value) || /^[-]\W/g.test(input.value)) {
-                eraseAll()
-        }
-}
-
-function replaceOperator(element) {
-        if(/\d[\/*+-]{2}/g.test(input.value)) {
-               changeOperator()
-        }
-}
-
-function deleteRepeat() {
-        if(/[\/*+-]{2,}/g.test(input.value)) {
-                eraseAll()
-        }
-}
-function deleteStitchRepeats() {
-        if(/[.]{2,6}/g.test(input.value)) {
-                deletePoint()
-        }
-}
-
-function limitZeroNoStart() {
-        if(/^[0]{2,}/g.test(input.value)) {
-                deletePoint()
-        }
-}
 
 
-
-
-function deleteRepeats() {
-        input.value =  input.value.slice(0,-1)
-}
-
-function eraseAll() {
-        input.value = ''
-}
-
-function swapOperators(element) {
-        input.value =  input.value.slice(0,-1)
-}
-
-function changeOperator() {
-        input.value = input.value.slice(0,-2) + element 
-}
-
-function deletePoint() {
-        input.value = input.value.slice(0,-1)
-}
-
-function limitZero() {
-
-}
 
 
 
