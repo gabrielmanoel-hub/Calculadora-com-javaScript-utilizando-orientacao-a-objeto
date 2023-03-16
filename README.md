@@ -1,5 +1,5 @@
 <header style='text-align: center'>
-    <h1 style= 'font-size: 70px'> Calculadora </h1>
+    <h1 style= 'font-size: 70px'> Calculadora - Orientação a Objetos com JavaScript </h1>
 </header>
 
 <!-- ======================== -->
