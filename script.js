@@ -36,10 +36,6 @@ function changeConvert(e) {
                 input.value = input.value.replace('÷', '/')
         }
 }
-//==============================================================================================
-
-
-
 
 
 input.addEventListener('keydown', (element) => {
